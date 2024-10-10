@@ -8,6 +8,7 @@ app.use(bodyParser.text());
 app.get('/ping', (req, res) => {
   return res.status(200).send('pong');
 });
+app.use('/api', require('./routes/index'));
 app.listen(PORT, (req, res) => {
   console.log(`Server is running on port ${PORT}`);
 });
