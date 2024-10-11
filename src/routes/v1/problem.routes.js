@@ -6,8 +6,6 @@ problemRouter.post('/', ProblemController.addProblem);
 problemRouter.get('/', ProblemController.getProblems);
 //Get Problem Route By Id
 problemRouter.get('/:id', ProblemController.getProblem);
-//Update Problem Route By Id
-problemRouter.put('/:id', ProblemController.updateProblem);
 //Delete Problem Route By Id
 problemRouter.delete('/:id', ProblemController.deleteProblem);
 module.exports = problemRouter;
