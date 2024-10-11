@@ -51,7 +51,21 @@ const getProblem = async (req, res, next) => {
     next(error);
   }
 };
-
+const updateProblem = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const problem = req.body;
+    const updatedProblem = await problemService.updateProblem(id, problem);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Problem updated successfully',
+      data: updatedProblem,
+      error: false,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 const deleteProblem = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -70,5 +84,6 @@ module.exports = {
   addProblem,
   getProblems,
   getProblem,
+  updateProblem,
   deleteProblem,
 };

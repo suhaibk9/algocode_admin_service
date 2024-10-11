@@ -36,6 +36,23 @@ class ProblemRepository {
       throw err;
     }
   }
+  async updateProblem(problemId, problemData) {
+    try {
+      const findProblem = await Problem.findById(problemId);
+      if (!findProblem) throw new NotFound('Problem', problemId);
+      //new: true is used to return the updated document
+      const problem = await Problem.findByIdAndUpdate(problemId, problemData, {
+        new: true,
+      })
+      return problem;
+    } catch (err) {
+      if (err.name === 'CastError') {
+        throw new NotFound('Problem', problemId);
+      }
+      throw err;
+    }
+  }
+
   async deleteProblem(id) {
     try {
       const problem = await Problem.findByIdAndDelete(id);

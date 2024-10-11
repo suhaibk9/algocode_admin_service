@@ -25,6 +25,13 @@ class ProblemService {
       throw err;
     }
   }
+  async updateProblem(problemId, problemData) {
+    try {
+      return await this.problemRepository.updateProblem(problemId, problemData);
+    } catch (err) {
+      throw err;
+    }
+  }
   async deleteProblem(id) {
     try {
       return await this.problemRepository.deleteProblem(id);
