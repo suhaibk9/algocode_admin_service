@@ -1,3 +1,4 @@
+const logger = require('../config/logger.config');
 const InternalServerError = require('../errors/InternalServerError');
 const NotFound = require('../errors/NotFoundError');
 const { Problem } = require('../models/index');
@@ -39,11 +40,14 @@ class ProblemRepository {
   async updateProblem(problemId, problemData) {
     try {
       const findProblem = await Problem.findById(problemId);
-      if (!findProblem) throw new NotFound('Problem', problemId);
+      if (!findProblem) {
+        logger.error(`Problem with id ${problemId} not found`);
+        throw new NotFound('Problem', problemId);
+      }
       //new: true is used to return the updated document
       const problem = await Problem.findByIdAndUpdate(problemId, problemData, {
         new: true,
-      })
+      });
       return problem;
     } catch (err) {
       if (err.name === 'CastError') {
@@ -57,10 +61,12 @@ class ProblemRepository {
     try {
       const problem = await Problem.findByIdAndDelete(id);
       if (!problem) {
+        // logger.error(`Problem with id ${id} not found`);
         throw new NotFound('Problem', id);
       }
       return problem;
     } catch (err) {
+      logger.error(`Problem with id ${id} not found`);
       if (err.name === 'CastError') {
         throw new NotFound('Problem', id);
       }
