@@ -19,11 +19,28 @@ const problemSchema = new Schema({
     {
       input: {
         type: String,
+        enum: ['CPP', 'JAVA', 'PYTHON'],
         required: [true, 'Input is required'],
       },
       output: {
         type: String,
         required: [true, 'Output is required'],
+      },
+    },
+  ],
+  codeStubs: [
+    {
+      language: {
+        type: String,
+        required: [true, 'Language is required'],
+      },
+      startSnippet: {
+        type: String,
+        required: [true, 'Start Snippet is required'],
+      },
+      endSnippet: {
+        type: String,
+        required: [true, 'End Snippet is required'],
       },
     },
   ],
